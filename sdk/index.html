@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Session Tracker SDK Test Page</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .test-section { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+    button { padding: 8px 12px; margin-right: 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Session Tracker SDK Test Page</h1>
+
+  <div class="test-section">
+    <h3>PII Masking</h3>
+    <input type="text" placeholder="General Input" />
+    <input type="password" placeholder="Password (masked)" />
+    <div class="private-data">This text should be masked because of .private-data</div>
+    <div data-private>This text should be masked because of data-private</div>
+  </div>
+
+  <div class="test-section">
+    <h3>Rage Clicks</h3>
+    <button id="rage-btn">Click me rapidly!</button>
+  </div>
+
+  <div class="test-section">
+    <h3>Dead Clicks</h3>
+    <button id="dead-btn">I do nothing (Dead Click)</button>
+    <button id="live-btn-dom">I change DOM</button>
+    <button id="live-btn-net">I trigger Network</button>
+    <div id="dom-target"></div>
+  </div>
+
+  <div class="test-section">
+    <h3>Console Errors</h3>
+    <button id="error-btn">Throw Error</button>
+    <button id="promise-btn">Unhandled Promise</button>
+  </div>
+
+  <script>
+    // Setup interactive test buttons
+    document.getElementById('live-btn-dom').addEventListener('click', () => {
+      document.getElementById('dom-target').innerText = 'DOM changed at ' + Date.now();
+    });
+
+    document.getElementById('live-btn-net').addEventListener('click', () => {
+      fetch('https://jsonplaceholder.typicode.com/todos/1').catch(() => {});
+    });
+
+    document.getElementById('error-btn').addEventListener('click', () => {
+      throw new Error("Simulated test error!");
+    });
+
+    document.getElementById('promise-btn').addEventListener('click', () => {
+      Promise.reject(new Error("Simulated promise rejection!"));
+    });
+  </script>
+
+  <!-- Load our tracker. Point this to the dist folder when testing locally -->
+  <script src="/dist/tracker.js" data-site-id="test-site-uuid-1234" data-ingress-url="http://localhost:3000"></script>
+</body>
+</html>
