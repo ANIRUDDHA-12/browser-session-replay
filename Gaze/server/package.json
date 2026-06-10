@@ -1,11 +1,11 @@
 {
-  "name": "session-replay-server",
+  "name": "server",
   "version": "1.0.0",
   "description": "Backend API for Session Replay Analytics",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node server.js"
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^5.0.0",

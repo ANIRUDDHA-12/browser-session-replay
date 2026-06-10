@@ -1,5 +1,5 @@
 {
-  "name": "session-replay-sdk",
+  "name": "sdk",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,6 @@
     "rrweb": "^2.0.0-alpha.11"
   },
   "devDependencies": {
-    "vite": "^6.0.0"
+    "vite": "^5.3.1"
   }
 }
