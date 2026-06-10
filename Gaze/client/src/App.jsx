@@ -4,6 +4,7 @@ import DashboardLayout from './layouts/DashboardLayout'
 import SessionsPage from './pages/SessionsPage'
 import TheaterPage from './pages/TheaterPage'
 import LandingPage from './pages/LandingPage'
+import SettingsPage from './pages/SettingsPage'
 
 function App() {
   return (
@@ -26,6 +27,19 @@ function App() {
               <SignedIn>
                 <DashboardLayout>
                   <SessionsPage />
+                </DashboardLayout>
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          } />
+
+          <Route path="/settings" element={
+            <>
+              <SignedIn>
+                <DashboardLayout>
+                  <SettingsPage />
                 </DashboardLayout>
               </SignedIn>
               <SignedOut>

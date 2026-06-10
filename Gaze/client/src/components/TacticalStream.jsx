@@ -1,8 +1,14 @@
 import clsx from 'clsx'
 
-export default function TacticalStream({ events }) {
+export default function TacticalStream({ events, playerInstanceRef }) {
+  const handleEventClick = (timeOffset) => {
+    if (playerInstanceRef && playerInstanceRef.current) {
+      playerInstanceRef.current.goto(timeOffset);
+    }
+  };
+
   return (
-    <div className="absolute right-4 top-14 bottom-32 w-80 bg-[#0d0d12]/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden z-20">
+    <div className="absolute right-4 top-14 bottom-32 w-80 bg-[#0d0d12]/80 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden z-20 pointer-events-auto">
       <div className="px-5 py-4 border-b border-white/5">
         <h3 className="text-xs font-bold tracking-wider text-zinc-300">TACTICAL STREAM</h3>
       </div>
@@ -10,6 +16,7 @@ export default function TacticalStream({ events }) {
         {events.map((ev, i) => (
           <div 
             key={i}
+            onClick={() => handleEventClick(ev.timeOffset)}
             className={clsx(
               "relative pl-6 pr-4 py-3 rounded-lg mb-1 transition-colors hover:bg-white/5 cursor-pointer",
               ev.type === 'rage-click' && "bg-pink-500/5 border border-pink-500/20"

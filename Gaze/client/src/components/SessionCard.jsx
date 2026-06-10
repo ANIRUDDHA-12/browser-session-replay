@@ -1,4 +1,4 @@
-import { Monitor, Globe, Play, User, Star } from 'lucide-react'
+import { Monitor, Play, User, Star } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import clsx from 'clsx'
 
@@ -33,8 +33,6 @@ export default function SessionCard({ session }) {
 
         <div className="flex items-center gap-3 w-1/6 text-zinc-400">
           <Monitor className="w-4 h-4" />
-          <Globe className="w-4 h-4" />
-          <span className="text-sm" title={session.country}>{session.country === 'US' ? '🇺🇸' : '🇩🇪'}</span>
         </div>
 
         <div className="flex items-center gap-6 w-1/4 text-sm text-zinc-400 font-mono">

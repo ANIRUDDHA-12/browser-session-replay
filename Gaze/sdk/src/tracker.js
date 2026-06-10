@@ -11,7 +11,14 @@ const finalIngressUrl = scriptIngressUrl || config.ingressUrl || 'http://localho
 if (!finalSiteId) {
   console.warn('Session Tracker SDK: Missing siteId. Recording disabled.');
 } else {
-  initTracker();
+  if (document.readyState === 'loading') {
+    // document.addEventListener('load', initTracker);
+    initTracker()
+
+  } else {
+    window.addEventListener('load',initTracker)
+    // initTracker();
+  }
 }
 
 let sessionId = null;

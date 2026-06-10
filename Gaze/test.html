@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GAZE SDK Test Laboratory</title>
+  <style>
+    /* CRITICAL: Explicitly style root elements to eliminate blank/white iframe defaults */
+    html, body { 
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #0b0b0f; /* Dark premium background matching your glassmorphic theater */
+      color: #f4f4f9;
+      font-family: system-ui, -apple-system, sans-serif; 
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      max-width: 600px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+    }
+    h1 { margin-top: 0; color: #fff; font-size: 28px; }
+    p { color: #94a3b8; font-size: 15px; }
+    h3 { margin-top: 24px; color: #818cf8; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+    button { 
+      padding: 12px 24px; 
+      margin: 8px; 
+      font-size: 14px; 
+      font-weight: 500;
+      cursor: pointer; 
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+    button:hover { background: rgba(255,255,255,0.15); transform: translateY(-1px); }
+    .broken { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; }
+    .broken:hover { background: rgba(239, 68, 68, 0.25); }
+    #rage-zone { background: rgba(236, 72, 153, 0.15); border: 1px solid #ec4899; color: #fbcfe8; }
+    #rage-zone:hover { background: rgba(236, 72, 153, 0.25); }
+  </style>
+
+  <script 
+    src="http://localhost:3000/sdk.js" 
+    data-site-id="70269f64-9623-43d4-825a-0757547c9a37" 
+    data-ingress-url="http://localhost:3000">
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>GAZE Telemetry Sandbox</h1>
+    <p>Use the controls below to simulate different user interaction anomalies.</p>
+
+    <h3>1. Frustration Interactions</h3>
+    <button onclick="console.log('Normal click registered')">Normal Button</button>
+    <button class="broken">Broken Button (Dead Click)</button>
+    <button id="rage-zone">Rage Click Target</button>
+
+    <h3>2. System Faults</h3>
+    <button onclick="triggerRuntimeError()">Trigger JS Runtime Error</button>
+    <button onclick="triggerPromiseRejection()">Trigger Promise Rejection</button>
+  </div>
+
+  <script>
+    // Simulate runtime exception
+    function triggerRuntimeError() {
+      throw new Error("Uncaught TypeError: Cannot read properties of undefined (reading 'map')");
+    }
+
+    // Simulate an unhandled async rejection
+    function triggerPromiseRejection() {
+      Promise.reject(new Error("API Route /api/v1/user/profiles returned status 500"));
+    }
+
+    // Capture dead clicks accurately
+    document.querySelector('.broken').addEventListener('click', (e) => {
+      e.preventDefault();
+      console.log('Dead click captured...');
+    });
+
+    // Simulate a rapid rage click scenario when clicked once
+    document.getElementById('rage-zone').addEventListener('click', function(e) {
+      console.log('Rage click sequence initiated');
+    });
+  </script>
+</body>
+</html>

@@ -5,7 +5,7 @@ console.log('1. Ensure the server is running (node server/server.js).');
 console.log('2. This script tests the API endpoints the SDK uses.');
 
 const ingressUrl = 'http://localhost:3000';
-const siteId = 'test-site-uuid'; // Note: In reality, you'd need a valid siteId from your NeonDB.
+const siteId = '00000000-0000-0000-0000-000000000001'; // Valid UUID format for Postgres
 
 const startPayload = JSON.stringify({
   siteId: siteId,

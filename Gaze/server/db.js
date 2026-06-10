@@ -45,6 +45,14 @@ async function initDatabase() {
       )
     `);
 
+    // Alter sessions table to add new columns (safe if they already exist)
+    await client.query(`
+      ALTER TABLE sessions 
+      ADD COLUMN IF NOT EXISTS duration_ms INTEGER DEFAULT 0,
+      ADD COLUMN IF NOT EXISTS has_rage_clicks BOOLEAN DEFAULT false,
+      ADD COLUMN IF NOT EXISTS has_errors BOOLEAN DEFAULT false;
+    `);
+
     // Create performance indexes
     await client.query(`
       CREATE INDEX IF NOT EXISTS idx_sessions_tenant ON sessions(tenant_id, created_at DESC)
